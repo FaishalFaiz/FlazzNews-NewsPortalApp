@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flazz_news/bindings/app_bindings.dart';
 import 'package:flazz_news/routes/app_pages.dart';
 import 'package:flazz_news/utils/app_colors.dart';
@@ -20,20 +21,41 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'News App',
+      title: 'Flazz News',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: AppColors.primary,
+        useMaterial3: true,
+        colorScheme: const ColorScheme.light(
+          primary: AppColors.primary,
+          onPrimary: AppColors.onPrimary,
+          primaryContainer: AppColors.primaryContainer,
+          onPrimaryContainer: AppColors.onPrimaryContainer,
+          secondary: AppColors.secondary,
+          onSecondary: AppColors.onSecondary,
+          surface: AppColors.surface,
+          onSurface: AppColors.onSurface,
+          error: AppColors.error,
+          onError: AppColors.onError,
+        ),
         scaffoldBackgroundColor: AppColors.background,
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
+          backgroundColor: AppColors.surface,
+          foregroundColor: AppColors.onSurface,
           elevation: 0,
+          scrolledUnderElevation: 0,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
+            foregroundColor: AppColors.onPrimary,
+            shape: const StadiumBorder(),
+            elevation: 0,
+            textStyle: GoogleFonts.plusJakartaSans(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

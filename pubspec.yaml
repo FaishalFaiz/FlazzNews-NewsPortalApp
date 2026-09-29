@@ -41,6 +41,8 @@ dependencies:
   cached_network_image: ^3.4.1   # Cache gambar dari network
   timeago: ^3.7.1                # Format waktu "x menit lalu"
   flutter_dotenv: ^5.2.1         # Membaca API key dari file .env
+  flutter_svg: ^2.0.10+1         # Render SVG assets
+  google_fonts: ^6.2.1           # Plus Jakarta Sans typeface
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +68,7 @@ flutter:
 
   assets:
     - assets/.env
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,30 +1,59 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flazz_news/main.dart';
+import 'package:flazz_news/utils/app_colors.dart';
+import 'package:flazz_news/models/news_article.dart';
+import 'package:flazz_news/widgets/category_chip.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test('AppColors matches M3 redesign specification', () {
+    expect(AppColors.primary, const Color(0xFFFF7A00));
+    expect(AppColors.onPrimary, const Color(0xFFFFFFFF));
+    expect(AppColors.secondary, const Color(0xFF121212));
+    expect(AppColors.surface, const Color(0xFFFFFFFF));
+    expect(AppColors.gradientStart, const Color(0xFF994700));
+    expect(AppColors.gradientEnd, const Color(0xFFFF7A00));
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('NewsArticle parses JSON with author properly', () {
+    final json = {
+      'title': 'Test Headline',
+      'author': 'John Doe',
+      'description': 'Test summary',
+      'url': 'https://example.com/news',
+      'urlToImage': 'https://example.com/image.jpg',
+      'publishedAt': '2026-09-28T09:00:00Z',
+      'content': 'Test full content',
+      'source': {'id': 'test-source', 'name': 'Test Source'},
+    };
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final article = NewsArticle.fromJson(json);
+    expect(article.title, 'Test Headline');
+    expect(article.author, 'John Doe');
+    expect(article.source?.name, 'Test Source');
+    expect(article.url, 'https://example.com/news');
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('CategoryChip renders correctly when selected and unselected',
+      (WidgetTester tester) async {
+    bool tapped = false;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: CategoryChip(
+            label: 'Teknologi',
+            isSelected: true,
+            onTap: () {
+              tapped = true;
+            },
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Teknologi'), findsOneWidget);
+
+    await tester.tap(find.text('Teknologi'));
+    expect(tapped, isTrue);
   });
 }

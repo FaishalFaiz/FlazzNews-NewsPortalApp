@@ -1,5 +1,6 @@
 class NewsArticle {
   final String? title;
+  final String? author;
   final String? description;
   final String? url;
   final String? urlToImage;
@@ -9,6 +10,7 @@ class NewsArticle {
 
   NewsArticle({
     this.title,
+    this.author,
     this.description,
     this.url,
     this.urlToImage,
@@ -20,6 +22,7 @@ class NewsArticle {
   factory NewsArticle.fromJson(Map<String, dynamic> json) {
     return NewsArticle(
       title: json['title'],
+      author: json['author'],
       description: json['description'],
       url: json['url'],
       urlToImage: json['urlToImage'],
@@ -32,6 +35,7 @@ class NewsArticle {
   Map<String, dynamic> toJson() {
     return {
       'title': title,
+      'author': author,
       'description': description,
       'url': url,
       'urlToImage': urlToImage,
